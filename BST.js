@@ -14,6 +14,21 @@ class BST {
         this.root = root;
     }
 
+    //will print out every node from starting position down, starting with the one passed in as param (default is root)
+    printTree(node = this.root) {
+        this._print(node);
+    }
+
+    _print(nodeToPrint) {
+        if(nodeToPrint === null) {
+            return;
+        }
+
+        console.log(nodeToPrint);
+        this._print(nodeToPrint.leftChild);
+        this._print(nodeToPrint.rightChild);
+    }
+
     //clear is a void recursive method and _clear is the helped function (invoke clear not _clear when using tree)
     clear() {
         if(this.root !== null) {
@@ -29,11 +44,23 @@ class BST {
         this._clear(node.leftChild);
         this._clear(node.rightChild);
 
-        console.log("Clearing", node);
+        // console.log("Clearing", node);
         node = null;
+        console.log("The node after clear is", node);
     }
 
     //add returns bool if added (will not add duplicates)
+    add(value) {
+        let nodeToAdd = new Node(value);
+        if(this.root === null) {
+            this.root = nodeToAdd;
+            console.log("Added value", value, "to root");
+            return true;
+        } else {
+            return this._add(this.root, nodeToAdd);
+        }
+    }
+
     _add(node, toAdd) {
 
         if(node.value === toAdd.value) { //value is already in tree
@@ -57,22 +84,14 @@ class BST {
             }
         }
     }
-
-    add(value) {
-        let nodeToAdd = new Node(value);
-        if(this.root === null) {
-            this.root = nodeToAdd;
-            console.log("Added value", value, "to root");
-            return true;
-        } else {
-            return this._add(this.root, nodeToAdd);
-        }
-    }
 }
 
 let tree = new BST();
+tree.printTree();
 tree.clear();
 tree.add(5);
 tree.add(7);
 tree.add(5);
+tree.printTree();
 tree.clear();
+tree.printTree();
