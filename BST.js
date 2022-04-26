@@ -34,6 +34,7 @@ class BST {
         if(this.root !== null) {
             this._clear(this.root);
         }
+        this.root = null;
     }
 
     _clear(node) {
@@ -45,8 +46,10 @@ class BST {
         this._clear(node.rightChild);
 
         // console.log("Clearing", node);
-        node = null;
-        console.log("The node after clear is", node);
+        node.value = null;
+        node.leftChild = null;
+        node.rightChild = null;
+        console.log("The node after clear is deleted");
     }
 
     //add returns bool if added (will not add duplicates)
