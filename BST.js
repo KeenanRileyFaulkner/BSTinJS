@@ -87,6 +87,16 @@ class BST {
             return this.query(val, node.right);
         }
     }
+
+    //returns bool
+    contains(val) {
+        let found = this.query(val, this.root);
+        if(found !== null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 let tr = new BST();
@@ -100,6 +110,8 @@ tr.add(2);
 tr.add(9);
 tr.add(6);
 console.log(tr.query(3));
+console.log(tr.contains(2));
+console.log(tr.contains(10));
 // tr.print();
 tr.clear();
 // tr.print();
