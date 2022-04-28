@@ -72,7 +72,21 @@ class BST {
 
     remove() {}
 
-    query() {}
+    //returns node object
+    query(val, node = this.root) {
+        if(node === null) {
+            console.log("The value is not in the tree");
+            return null;
+        } else if (node.val === val) {
+            return node;
+        }
+
+        if(val < node.val) {
+            return this.query(val, node.left);
+        } else if (val > node.val) {
+            return this.query(val, node.right);
+        }
+    }
 }
 
 let tr = new BST();
@@ -80,9 +94,12 @@ tr.add(5)
 tr.add(7);
 tr.add(3);
 tr.add(4);
+console.log(tr.query(7));
+console.log(tr.query(10));
 tr.add(2);
 tr.add(9);
 tr.add(6);
+console.log(tr.query(3));
 // tr.print();
 tr.clear();
 // tr.print();
