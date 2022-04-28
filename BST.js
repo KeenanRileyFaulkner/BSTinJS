@@ -2,34 +2,22 @@
 //needs add, remove, clear, find
 //returns bool, bool, void, int
 class Node {
-    constructor(value) {
-        this.value = value;
-        this.leftChild = null;
-        this.rightChild = null;
+    constructor(val) {
+        this.val = val;
+        this.left = null;
+        this.right = null;
     }
 }
 
 class BST {
-    constructor(root = null){
+    constructor(root = null) {
         this.root = root;
     }
 
-    //will print out every node from starting position down, starting with the one passed in as param (default is root)
-    printTree(node = this.root) {
-        this._print(node);
+    print(node = this.root) {
+        node === null ? console.log("The tree is empty") : console.log(node);
     }
 
-    _print(nodeToPrint) {
-        if(nodeToPrint === null) {
-            return;
-        }
-
-        console.log(nodeToPrint);
-        this._print(nodeToPrint.leftChild);
-        this._print(nodeToPrint.rightChild);
-    }
-
-    //clear is a void recursive method and _clear is the helped function (invoke clear not _clear when using tree)
     clear() {
         if(this.root !== null) {
             this._clear(this.root);
@@ -42,22 +30,17 @@ class BST {
             return;
         }
 
-        this._clear(node.leftChild);
-        this._clear(node.rightChild);
-
-        // console.log("Clearing", node);
-        node.value = null;
-        node.leftChild = null;
-        node.rightChild = null;
-        console.log("The node after clear is deleted");
+        this._clear(node.left);
+        this._clear(node.right);
+        console.log("Removing", node, "in _clear()")
+        node = null;
     }
 
-    //add returns bool if added (will not add duplicates)
-    add(value) {
-        let nodeToAdd = new Node(value);
+    add(val) {
+        const nodeToAdd = new Node(val);
         if(this.root === null) {
             this.root = nodeToAdd;
-            console.log("Added value", value, "to root");
+            console.log("Tree was empty. Added", nodeToAdd, "to root");
             return true;
         } else {
             return this._add(this.root, nodeToAdd);
@@ -65,36 +48,42 @@ class BST {
     }
 
     _add(node, toAdd) {
-
-        if(node.value === toAdd.value) { //value is already in tree
-            console.log("The value is already in the tree");
+        if(node.val === toAdd.val) {
+            console.log(toAdd.val, "is already in the tree");
             return false;
-        }else if(node.value > toAdd.value) { //value is less than current node
-            if(node.leftChild === null) {
-                node.leftChild = toAdd;
+        } else if (toAdd.val < node.val) {
+            if(node.left === null) {
+                node.left = toAdd;
                 console.log("Added", toAdd);
                 return true;
             } else {
-                return this._add(node.leftChild, toAdd);
+                return this._add(node.left, toAdd);
             }
-        } else if (node.value < toAdd.value) { //value is greater than current node
-            if(node.rightChild === null) {
+        } else if (toAdd. val > node.val) {
+            if(node.right === null) {
+                node.right = toAdd;
                 console.log("Added", toAdd);
-                node.rightChild = toAdd;
                 return true;
             } else {
-                return this._add(node.rightChild, toAdd);
+                return this._add(node.right, toAdd);
             }
         }
     }
+
+    remove() {}
+
+    query() {}
 }
 
-let tree = new BST();
-tree.printTree();
-tree.clear();
-tree.add(5);
-tree.add(7);
-tree.add(5);
-tree.printTree();
-tree.clear();
-tree.printTree();
+let tr = new BST();
+tr.add(5)
+tr.add(7);
+tr.add(3);
+tr.add(4);
+tr.add(2);
+tr.add(9);
+tr.add(6);
+// tr.print();
+tr.clear();
+// tr.print();
+console.log(tr.root);
